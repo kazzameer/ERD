@@ -15,20 +15,5 @@
         {
             "Prefab": "floor0"
         }
-    ],
-
-    "Collectables" : [
-        {
-            "Type": 0,
-            "Prefab": "coin0"
-        },
-        {
-            "Type": 1,
-            "Prefab": "powerup0"
-        },
-        {
-            "Type": 2,
-            "Prefab": "powerup1"
-        }
     ]
 }
