@@ -6,22 +6,18 @@ using App.Models;
 namespace App.Level
 {
 	public class LevelGenerator {
+		public const int MAX_ROWS = 8;
+		public const int MAX_COLUMNS = 3;
+
 		[Inject]
 		public LevelGeneratorModel LevelGeneratorModel { get; set; }
 		
-		private const int MAX_ROWS = 8;
-		private const int MAX_COLUMNS = 3;
-
-		private T GetRandom<T>(List<T> list) {
-			return list[Random.Range(0, list.Count)];
-		}
-
 		public LevelSegment GenerateSegment(LevelSegment previousSegment = null)
 		{
 			var obstacles = LevelGeneratorModel.Obstacles;
 			var floors = LevelGeneratorModel.Floors;
 
-			var floor = GetRandom(floors);
+			var floor = Utils.GetRandom(floors);
 			LevelSegment segment = new LevelSegment(floor.Prefab);
 			
 			int currentRow = 0;
