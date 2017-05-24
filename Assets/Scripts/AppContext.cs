@@ -13,6 +13,8 @@ using strange.extensions.signal.impl;
 using App.Models;
 using App.Signals;
 using App.Commands;
+using App.Level;
+using App.Views;
 
 namespace App
 {
@@ -40,7 +42,13 @@ namespace App
 		protected override void mapBindings ()
         {
 			injectionBinder.Bind<LevelGeneratorModel>().To<LevelGeneratorModel>().ToSingleton();
-            commandBinder.Bind<InitiateSignal>().To<LoadDataCommand>();
+            injectionBinder.Bind<LevelGenerator>().To<LevelGenerator>().ToSingleton();
+            mediationBinder.Bind<LevelView>().To<LevelViewMediator>();
+            commandBinder.Bind<InitiateSignal>().InSequence().
+            To<LoadDataCommand>().
+            To<StartGameCommand>();
+
+            injectionBinder.Bind<Transform>().To(_main.World).ToName(Main.Container.World);
 		}
 	}
 }
