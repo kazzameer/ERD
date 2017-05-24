@@ -18,7 +18,9 @@ namespace App.Views
 		public LevelGeneratorModel LevelGeneratorModel { get; set; }
 
 		private Player _player = null;
+		private int _currentTrack = 1;
 		private GameObject _currentSegment = null;
+		private bool _playerSteering = false;
 		private Dictionary<int, float> _cellOffset = new Dictionary<int, float> {
 			{0, -1.0f},
 			{1, .0f},
@@ -29,6 +31,30 @@ namespace App.Views
 			BuildSegment(LevelGenerator.GenerateSegment());
 		}
 		
+		public void MoveLeft()
+		{
+			if (_currentTrack > 0 && !_playerSteering)
+			{
+				_playerSteering = true;
+				_currentTrack--;
+				var p = _player.transform.position;
+				p.x = _cellOffset[_currentTrack];
+				_player.transform.position = p;
+			}
+		}
+
+		public void MoveRight()
+		{
+			if (_currentTrack < LevelGenerator.MAX_COLUMNS - 1 && !_playerSteering)
+			{
+				_playerSteering = true;
+				_currentTrack++;
+				var p = _player.transform.position;
+				p.x = _cellOffset[_currentTrack];
+				_player.transform.position = p;
+			}
+		}
+
 		public void AttachCamera(Camera camera)
 		{
 			var controller = camera.GetComponent<UnityStandardAssets.Utility.SmoothFollow>();
