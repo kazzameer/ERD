@@ -18,6 +18,13 @@ namespace App.Level
 			_floorPrefab = floorPrefab;
 		}
 
+		public string FloorPrefab
+		{
+			get {
+				return _floorPrefab;
+			}
+		}
+
 		public int FreeCellsInRow(int rowIndex) {
 			SegmentValue[] row = {_plan[0, rowIndex], _plan[1, rowIndex], _plan[2, rowIndex]};
 			int freeCells = 0;
