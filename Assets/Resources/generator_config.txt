@@ -14,6 +14,9 @@
     "Floors": [
         {
             "Prefab": "floor0"
+        },
+        {
+            "Prefab": "floor1"
         }
     ]
 }

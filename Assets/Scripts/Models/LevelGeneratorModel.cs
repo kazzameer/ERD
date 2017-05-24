@@ -20,6 +20,29 @@ namespace App.Models
 	{
 		private LevelGeneratorConfig _config = null;
 		private Dictionary<string, GameObject> _prefabs = new Dictionary<string, GameObject>();
+
+		public List<ConfigEntry> Obstacles {
+			get {
+				return _config.Obstacles;
+			}
+		}
+
+		public List<ConfigEntry> Floors {
+			get {
+				return _config.Floors;
+			}
+		}
+
+		public GameObject this[string prefabName]
+		{
+			get {
+				if (_prefabs.ContainsKey(prefabName))
+				{
+					return _prefabs[prefabName];
+				} else  return null;
+			}
+		}
+
 		public void LoadFromJSON(string json)
 		{
 			try {
