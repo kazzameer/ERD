@@ -41,13 +41,25 @@ namespace App
 
 		protected override void mapBindings ()
         {
+            // models
 			injectionBinder.Bind<LevelGeneratorModel>().To<LevelGeneratorModel>().ToSingleton();
             injectionBinder.Bind<LevelGenerator>().To<LevelGenerator>().ToSingleton();
+            
+            // views and mediators
             mediationBinder.Bind<LevelView>().To<LevelViewMediator>();
+            mediationBinder.Bind<LevelHUDView>().To<LevelHUDMediator>();
+
+
+            // signals
+            injectionBinder.Bind<MoveLeftSignal>().ToSingleton();
+            injectionBinder.Bind<MoveRightSignal>().ToSingleton();
+
+            // commands
             commandBinder.Bind<InitiateSignal>().InSequence().
             To<LoadDataCommand>().
             To<StartGameCommand>();
 
+            // utility
             injectionBinder.Bind<Transform>().To(_main.World).ToName(Main.Container.World);
 		}
 	}
