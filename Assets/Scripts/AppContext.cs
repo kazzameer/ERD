@@ -61,6 +61,7 @@ namespace App
 
             // utility
             injectionBinder.Bind<Transform>().To(_main.World).ToName(Main.Container.World);
+            injectionBinder.Bind<Transform>().To(_main.UIRoot).ToName(Main.Container.UI);
 		}
 	}
 }

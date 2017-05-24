@@ -7,6 +7,7 @@ namespace App
 {
 	public class Main : ContextView {
 		[SerializeField] Transform Root;
+		[SerializeField] Transform UI;
 		void Awake()
 		{
 			//Random.InitState(128);
@@ -18,6 +19,12 @@ namespace App
 		public Transform World {
 			get {
 				return Root;
+			}
+		}
+
+		public Transform UIRoot {
+			get {
+				return UI;
 			}
 		}
 
