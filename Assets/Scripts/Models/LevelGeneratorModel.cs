@@ -5,7 +5,7 @@ using UnityEngine;
 namespace App.Models
 {
 	[System.Serializable]
-	public class ObstacleEntry {
+	public class ConfigEntry {
 		public string PrefabName { get; private set; }
 		public string BundleName { get; private set; }
 	}
@@ -13,7 +13,8 @@ namespace App.Models
 	[System.Serializable]
 	public class LevelGeneratorConfig
 	{
-		public List<ObstacleEntry> Obstacles;
+		public List<ConfigEntry> Obstacles;
+		public List<ConfigEntry> Floors;
 	}
 	public class LevelGeneratorModel
 	{
@@ -29,6 +30,8 @@ namespace App.Models
 				if (_config != null) {
 					UnityEngine.Debug.LogWarningFormat("Loaded {0} generator entities", 
 						_config.Obstacles.Count);
+					UnityEngine.Debug.LogWarningFormat("Loaded {0} generator floors", 
+						_config.Floors.Count);
 				}
 			}
 			
