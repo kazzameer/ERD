@@ -1,0 +1,16 @@
+Library/
+Temp/
+**/*.csproj
+**/*.sln
+**/*.userprefs
+**/.DS_Store
+obj/
+
+build/
+ios_build/
+win_build/
+**/*.apk
+.idea/
+.vs/
+.vscode/
+
