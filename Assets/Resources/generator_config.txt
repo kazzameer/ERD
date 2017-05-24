@@ -1,0 +1,13 @@
+{
+    "Obstacles": [
+        {
+            "Prefab": "wall0"
+        },
+        {
+            "Prefab": "wall1"
+        },
+        {
+            "Prefab": "wall2"
+        }
+    ]
+}
