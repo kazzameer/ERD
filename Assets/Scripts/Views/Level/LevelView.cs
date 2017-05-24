@@ -29,6 +29,12 @@ namespace App.Views
 			BuildSegment(LevelGenerator.GenerateSegment());
 		}
 		
+		public void AttachCamera(Camera camera)
+		{
+			var controller = camera.GetComponent<UnityStandardAssets.Utility.SmoothFollow>();
+			controller.SetTarget(_player.Anchor);
+		}
+
 		private GameObject BuildSegment(LevelSegment segment)
 		{
 			GameObject segmentInstance = new GameObject();
@@ -51,6 +57,10 @@ namespace App.Views
 							var inst = Instantiate<GameObject>(obstaclePrefab);
 							inst.transform.SetParent(segmentInstance.transform, false);
 							inst.transform.position = new Vector3(_cellOffset[i], 0, j);	
+						} break;
+
+						case SegmentValue.PlayerStart: {
+							_player.transform.position = new Vector3(_cellOffset[i], 0, j);
 						} break;
 					}
 				}

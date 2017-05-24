@@ -12,8 +12,10 @@ namespace App.Views
 		public override void OnRegister()
         {
             base.OnRegister();
-			View.GenerateInitialSegment();
 			View.SpawnPlayer();
+			View.AttachCamera(Camera.main);
+			View.GenerateInitialSegment();
+			
 		}
 
 		public override void OnRemove()
