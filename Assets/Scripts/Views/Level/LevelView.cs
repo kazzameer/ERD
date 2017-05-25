@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using strange.extensions.mediation.impl;
+using DG.Tweening;
 
 using App.Level;
 using App.Models;
@@ -37,21 +39,22 @@ namespace App.Views
 			{
 				_playerSteering = true;
 				_currentTrack--;
-				var p = _player.transform.position;
-				p.x = _cellOffset[_currentTrack];
-				_player.transform.position = p;
+				ChangeTrack();
 			}
 		}
-
+		private void ChangeTrack()
+		{
+			_player.transform.DOMoveX(_cellOffset[_currentTrack], 0.35f).OnComplete(()=>{
+				_playerSteering = false;
+			});
+		}
 		public void MoveRight()
 		{
 			if (_currentTrack < LevelGenerator.MAX_COLUMNS - 1 && !_playerSteering)
 			{
 				_playerSteering = true;
 				_currentTrack++;
-				var p = _player.transform.position;
-				p.x = _cellOffset[_currentTrack];
-				_player.transform.position = p;
+				ChangeTrack();
 			}
 		}
 
