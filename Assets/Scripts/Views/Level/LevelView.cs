@@ -22,7 +22,6 @@ namespace App.Views
 		private Player _player = null;
 		private int _currentTrack = 1;
 		private GameObject _currentSegment = null;
-		private bool _playerSteering = false;
 		private int _segmentCounter = 0;
 		private float _segmentProgress = .0f;
 		private List<GameObject> _segments = new List<GameObject>();
@@ -31,12 +30,6 @@ namespace App.Views
 		private int _lastSegment = 0;
 		private bool _removedLastTile = false;
 
-
-		private Dictionary<int, float> _cellOffset = new Dictionary<int, float> {
-			{0, -1.0f},
-			{1, .0f},
-			{2, 1.0f}
-		};
 		public void GenerateInitialSegment()
 		{
 			BuildSegment(LevelGenerator.GenerateSegment());
@@ -46,24 +39,20 @@ namespace App.Views
 		
 		public void MoveLeft()
 		{
-			if (_currentTrack > 0 && !_playerSteering)
+			if (_currentTrack > 0 && !_player.IsSteering)
 			{
-				_playerSteering = true;
 				_currentTrack--;
 				ChangeTrack();
 			}
 		}
 		private void ChangeTrack()
 		{
-			_player.transform.DOMoveX(_cellOffset[_currentTrack], 0.35f).OnComplete(()=>{
-				_playerSteering = false;
-			});
+			_player.ChangeTrack(_currentTrack);
 		}
 		public void MoveRight()
 		{
-			if (_currentTrack < LevelGenerator.MAX_COLUMNS - 1 && !_playerSteering)
+			if (_currentTrack < LevelGenerator.MAX_COLUMNS - 1 && !_player.IsSteering)
 			{
-				_playerSteering = true;
 				_currentTrack++;
 				ChangeTrack();
 			}
@@ -97,7 +86,7 @@ namespace App.Views
 							var obstaclePrefab = LevelGeneratorModel[obstacle.Prefab];
 							var inst = Instantiate<GameObject>(obstaclePrefab);
 							inst.transform.SetParent(segmentInstance.transform, false);
-							inst.transform.localPosition = new Vector3(_cellOffset[i], 0, j);	
+							inst.transform.localPosition = new Vector3(Consts.CellOffset[i], 0, j);	
 						} break;
 
 						case SegmentValue.PlayerStart: {
