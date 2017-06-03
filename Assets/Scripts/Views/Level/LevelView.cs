@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using strange.extensions.mediation.impl;
+using strange.extensions.signal.impl;
 using DG.Tweening;
 
 using App.Level;
@@ -18,6 +19,9 @@ namespace App.Views
 
 		[Inject]
 		public LevelGeneratorModel LevelGeneratorModel { get; set; }
+
+		public Signal OnHit = new Signal();
+		public Signal OnCollect = new Signal();
 
 		private Player _player = null;
 		private int _currentTrack = 1;
@@ -37,8 +41,7 @@ namespace App.Views
 		}
 		LevelSegment _previousSegment = null;
 		private void SpawnSegment() {
-			var newSegment = LevelGenerator.GeneratePattern(_previousSegment);
-			_previousSegment = newSegment;
+			_previousSegment = LevelGenerator.GeneratePattern(_previousSegment);
 			BuildSegment(_previousSegment);
 		}
 
@@ -108,6 +111,13 @@ namespace App.Views
 				var playerInstance = Instantiate<GameObject>(PlayerPrefab);
 				playerInstance.transform.SetParent(this.transform, false);
 				_player = playerInstance.GetComponent<Player>();
+				_player.OnHit = () => {
+					OnHit.Dispatch();
+				};
+
+				_player.OnCollect = () => {
+					OnCollect.Dispatch();
+				};
 			}
 			
 		}
@@ -138,6 +148,7 @@ namespace App.Views
 				if (_segmentProgress > 0.95f && !_pendNewSegment) {
 					_pendNewSegment = true;
 					SpawnSegment();
+					OnCollect.Dispatch();
 				}
 
 				if (_segmentProgress > 0.25 && !_removedLastTile && segmentNumber > 0) {

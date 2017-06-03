@@ -58,6 +58,8 @@ namespace App
             // commands
             commandBinder.Bind<StartGameSignal>().To<StartGameCommand>();
 
+            commandBinder.Bind<ShowMenuSignal>().To<ShowMainMenuCommand>();
+
             commandBinder.Bind<InitiateSignal>().InSequence().
             To<LoadDataCommand>().
             To<ShowMainMenuCommand>();
