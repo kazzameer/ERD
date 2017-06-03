@@ -10,7 +10,13 @@ namespace App.Commands
 		[Inject(Main.Container.UI)]
 		public Transform UI { get; set; }
 		
+		[Inject(Main.Container.World)]
+		public Transform World { get; set; }
+
 		public override void Execute() {
+			Utils.ClearTransform(UI);
+			Utils.ClearTransform(World);
+			
 			var hudPrefab = Resources.Load<GameObject>("Views/MainMenu");
 			var hudInstance = GameObject.Instantiate<GameObject>(hudPrefab);
 			hudInstance.transform.SetParent(UI, false);
