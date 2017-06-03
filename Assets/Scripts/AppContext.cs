@@ -48,16 +48,18 @@ namespace App
             // views and mediators
             mediationBinder.Bind<LevelView>().To<LevelViewMediator>();
             mediationBinder.Bind<LevelHUDView>().To<LevelHUDMediator>();
-
+            mediationBinder.Bind<MainMenuView>().To<MainMenuMediator>();
 
             // signals
             injectionBinder.Bind<MoveLeftSignal>().ToSingleton();
             injectionBinder.Bind<MoveRightSignal>().ToSingleton();
 
             // commands
+            commandBinder.Bind<StartGameSignal>().To<StartGameCommand>();
+
             commandBinder.Bind<InitiateSignal>().InSequence().
             To<LoadDataCommand>().
-            To<StartGameCommand>();
+            To<ShowMainMenuCommand>();
 
             // utility
             injectionBinder.Bind<Transform>().To(_main.World).ToName(Main.Container.World);

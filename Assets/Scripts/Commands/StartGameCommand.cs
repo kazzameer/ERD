@@ -10,6 +10,8 @@ namespace App.Commands
 		[Inject(Main.Container.UI)]
 		public Transform UI { get; set; }
 		public override void Execute() {
+			Utils.ClearTransform(UI);
+			Utils.ClearTransform(World);
 			var levelViewPrefab = Resources.Load<GameObject>("Views/LevelView");
 			var instance = GameObject.Instantiate<GameObject>(levelViewPrefab);
 			instance.transform.SetParent(World, false);
