@@ -13,6 +13,7 @@ namespace App.Level
 	{
 		private string _floorPrefab;
 		private SegmentValue[,] _plan = new SegmentValue[3, 8];
+		public int LastPattern = -1;
 		public LevelSegment(string floorPrefab)
 		{
 			_floorPrefab = floorPrefab;
@@ -25,17 +26,6 @@ namespace App.Level
 			}
 		}
 
-		public int FreeCellsInRow(int rowIndex) {
-			SegmentValue[] row = {_plan[0, rowIndex], _plan[1, rowIndex], _plan[2, rowIndex]};
-			int freeCells = 0;
-			for (int i = 0; i < row.Length; ++i) {
-				if (row[i] == SegmentValue.Empty)
-				{
-					freeCells++;	
-				}
-			}
-			return freeCells;
-		}
 		public SegmentValue Get(int x, int y)
 		{
 			return _plan[x, y];

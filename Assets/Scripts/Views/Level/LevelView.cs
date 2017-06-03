@@ -21,7 +21,6 @@ namespace App.Views
 
 		private Player _player = null;
 		private int _currentTrack = 1;
-		private GameObject _currentSegment = null;
 		private int _segmentCounter = 0;
 		private float _segmentProgress = .0f;
 		private List<GameObject> _segments = new List<GameObject>();
@@ -32,11 +31,17 @@ namespace App.Views
 
 		public void GenerateInitialSegment()
 		{
-			BuildSegment(LevelGenerator.GenerateSegment());
-			BuildSegment(LevelGenerator.GenerateSegment());
-			BuildSegment(LevelGenerator.GenerateSegment());
+			SpawnSegment();
+			SpawnSegment();
+			SpawnSegment();
 		}
-		
+		LevelSegment _previousSegment = null;
+		private void SpawnSegment() {
+			var newSegment = LevelGenerator.GeneratePattern(_previousSegment);
+			_previousSegment = newSegment;
+			BuildSegment(_previousSegment);
+		}
+
 		public void MoveLeft()
 		{
 			if (_currentTrack > 0 && !_player.IsSteering)
@@ -88,10 +93,6 @@ namespace App.Views
 							inst.transform.SetParent(segmentInstance.transform, false);
 							inst.transform.localPosition = new Vector3(Consts.CellOffset[i], 0, j);	
 						} break;
-
-						case SegmentValue.PlayerStart: {
-//							_player.transform.position = new Vector3(_cellOffset[i], 0, j);
-						} break;
 					}
 				}
 			}
@@ -115,6 +116,14 @@ namespace App.Views
 		{
 			if (_player != null)
 			{
+				if (Input.GetKey(KeyCode.LeftArrow)) {
+					MoveLeft();
+				}
+
+				if (Input.GetKey(KeyCode.RightArrow)) {
+					MoveRight();
+				}
+
 				var advance = _player.gameObject.transform.position.z;
 				int segmentNumber = (int)(advance / 8.0f);
 
@@ -128,7 +137,7 @@ namespace App.Views
 
 				if (_segmentProgress > 0.95f && !_pendNewSegment) {
 					_pendNewSegment = true;
-					BuildSegment(LevelGenerator.GenerateSegment());
+					SpawnSegment();
 				}
 
 				if (_segmentProgress > 0.25 && !_removedLastTile && segmentNumber > 0) {
@@ -140,6 +149,7 @@ namespace App.Views
 		private void PopSegment()
 		{
 			Destroy(_segments[0].gameObject);
+			_segments[0] = null;
 			_segments.RemoveAt(0);
 		}
 	}
