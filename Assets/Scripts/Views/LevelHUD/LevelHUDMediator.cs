@@ -16,12 +16,20 @@ namespace App.Views
 		public MoveLeftSignal MoveLeft { get; set; }
 		[Inject]
 		public MoveRightSignal MoveRight { get; set; }
+		[Inject]
+		public App.Models.GameModel GameModel { get; set; }
 
 		public override void OnRegister()
 		{
 			base.OnRegister();
 			View.OnLeft.AddListener(OnLeft);
 			View.OnRight.AddListener(OnRight);
+			GameModel.OnScoreChange.AddListener(OnScoreChange);
+		}
+
+		private void OnScoreChange(int score)
+		{
+			View.Score = score.ToString("D4");
 		}
 
 		private void OnLeft()
@@ -39,6 +47,7 @@ namespace App.Views
 			base.OnRemove();
 			View.OnLeft.RemoveListener(OnLeft);
 			View.OnRight.RemoveListener(OnRight);
+			GameModel.OnScoreChange.RemoveListener(OnScoreChange);
 		}
 	}
 }

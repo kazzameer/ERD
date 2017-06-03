@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using strange.extensions.signal.impl;
 
 namespace App.Models
 {
@@ -9,6 +10,8 @@ namespace App.Models
 		private int _hiscore = 0;
 		private int _score = 0;
 		private int _lastScore = 0;
+
+		public Signal<int> OnScoreChange = new Signal<int>();
 
 		public int HiScore {
 			get {
@@ -47,6 +50,7 @@ namespace App.Models
 
 		public void IncScore(int amount) {
 			_score += amount;
+			OnScoreChange.Dispatch(_score);
 		}
 	}
 }
