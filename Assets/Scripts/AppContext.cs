@@ -44,6 +44,7 @@ namespace App
             // models
 			injectionBinder.Bind<LevelGeneratorModel>().To<LevelGeneratorModel>().ToSingleton();
             injectionBinder.Bind<LevelGenerator>().To<LevelGenerator>().ToSingleton();
+            injectionBinder.Bind<GameModel>().To<GameModel>().ToSingleton();
             
             // views and mediators
             mediationBinder.Bind<LevelView>().To<LevelViewMediator>();
