@@ -18,13 +18,23 @@ namespace App.Views
 		public MoveRightSignal MoveRight { get; set; }
 		[Inject]
 		public App.Models.GameModel GameModel { get; set; }
+		[Inject]
+		public CountDownSignal CountdownComplete { get; set; }
 
 		public override void OnRegister()
 		{
 			base.OnRegister();
 			View.OnLeft.AddListener(OnLeft);
 			View.OnRight.AddListener(OnRight);
+			View.OnCountdown.AddListener(OnCountdown);
 			GameModel.OnScoreChange.AddListener(OnScoreChange);
+
+			View.StartCountdown();
+		}
+
+		private void OnCountdown()
+		{
+			CountdownComplete.Dispatch();
 		}
 
 		private void OnScoreChange(int score)

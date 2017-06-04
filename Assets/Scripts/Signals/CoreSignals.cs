@@ -8,4 +8,5 @@ namespace App.Signals
 	public class MoveRightSignal: Signal {}
 	public class StartGameSignal: Signal {}
 	public class ShowMenuSignal: Signal {}
+	public class CountDownSignal: Signal {}
 }

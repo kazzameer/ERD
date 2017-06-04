@@ -45,6 +45,11 @@ namespace App.Views
 			BuildSegment(_previousSegment);
 		}
 
+		public void StartGame()
+		{
+			_player.Run();
+		}
+
 		public void MoveLeft()
 		{
 			if (_currentTrack > 0 && !_player.IsSteering)

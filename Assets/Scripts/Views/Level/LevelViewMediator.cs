@@ -23,6 +23,10 @@ namespace App.Views
 
 		[Inject]
 		public ShowMenuSignal ShowMenu { get; set; }
+
+		[Inject]
+		public CountDownSignal CountdownComplete { get; set; }
+		
 		public override void OnRegister()
         {
             base.OnRegister();
@@ -35,8 +39,12 @@ namespace App.Views
 			
 			MoveLeft.AddListener(OnMoveLeft);
 			MoveRight.AddListener(OnMoveRight);
-		}
 
+			CountdownComplete.AddListener(OnCountdownComplete);
+		}
+		private void OnCountdownComplete() {
+			View.StartGame();
+		}
 		private void OnHit()
 		{
 			GameModel.Reset();
@@ -63,6 +71,7 @@ namespace App.Views
 			base.OnRemove();
 			MoveLeft.RemoveListener(OnMoveLeft);
 			MoveRight.RemoveListener(OnMoveRight);
+			CountdownComplete.RemoveListener(OnCountdownComplete);
 		}
 
 	}

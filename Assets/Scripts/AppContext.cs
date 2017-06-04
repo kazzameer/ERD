@@ -54,6 +54,7 @@ namespace App
             // signals
             injectionBinder.Bind<MoveLeftSignal>().ToSingleton();
             injectionBinder.Bind<MoveRightSignal>().ToSingleton();
+            injectionBinder.Bind<CountDownSignal>().ToSingleton();
 
             // commands
             commandBinder.Bind<StartGameSignal>().InSequence().

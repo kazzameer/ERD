@@ -41,7 +41,7 @@ namespace App
 			if (_animatorController == null) {
 				throw new UnityException("Player object have no reachable Animator component");
 			}
-			_animatorController.SetFloat("Forward", 1.0f);
+			_animatorController.SetFloat("Forward", 0.0f);
 		}
 
 		void OnCollisionEnter(Collision collision)
