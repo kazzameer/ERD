@@ -139,6 +139,14 @@ namespace strange.extensions.mediation.impl
 				throw new MediationException(msg,
 					MediationExceptionType.NO_CONTEXT);
 			}
+
+			if (!toAdd) {
+				if (Context.firstContext != null)
+				{
+					Context.firstContext.RemoveView (view);
+					return;
+				}
+			}
 		}
 	}
 }
