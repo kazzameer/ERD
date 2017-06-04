@@ -101,11 +101,9 @@ namespace App.Level
 		}
 
 		public static GeneratorPattern PickCompatibleAndHeight(int maxHeight, int compatibleToId) {
-			Debug.LogFormat("pick compatible to {0}, max height = {1}", compatibleToId, maxHeight);
 			List<GeneratorPattern> candidates = new List<GeneratorPattern>();
 			foreach(var pattern in Patterns) {
 				if (pattern.data.GetLength(0) <= maxHeight && pattern.Compatible(compatibleToId)) {
-					Debug.LogFormat("add candidate {0}", pattern.id);
 					candidates.Add(pattern);
 				}
 			}
@@ -147,10 +145,6 @@ namespace App.Level
 				segment.LastPattern = pattern.id;
 				heightBudget -= pattern.Height;
 				pattern = SegmentPattern.PickCompatibleAndHeight(heightBudget, pattern.id);
-				if (pattern != null)
-				{
-					Debug.LogFormat("pattern {0} was chosen", pattern.id);
-				}
 			}
 			
 			

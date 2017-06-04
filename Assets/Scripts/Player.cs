@@ -19,8 +19,6 @@ namespace App
 			}
 		}
 
-		
-
 		public bool IsSteering 
 		{
 			get 
@@ -72,5 +70,4 @@ namespace App
 			_animatorController.SetFloat("Forward", .0f);
 		}
 	}
-
 }

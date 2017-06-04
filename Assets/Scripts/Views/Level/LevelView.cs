@@ -72,7 +72,7 @@ namespace App.Views
 			controller.SetTarget(_player.Anchor);
 		}
 
-	private void BuildSegment(LevelSegment segment)
+		private void BuildSegment(LevelSegment segment)
 		{
 			GameObject segmentInstance = new GameObject();
 			segmentInstance.transform.SetParent(this.transform, false);

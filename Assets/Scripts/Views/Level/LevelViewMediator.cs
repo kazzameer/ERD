@@ -60,6 +60,7 @@ namespace App.Views
 
 		public override void OnRemove()
 		{
+			base.OnRemove();
 			MoveLeft.RemoveListener(OnMoveLeft);
 			MoveRight.RemoveListener(OnMoveRight);
 		}

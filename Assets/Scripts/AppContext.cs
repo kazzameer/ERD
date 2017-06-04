@@ -47,18 +47,22 @@ namespace App
             injectionBinder.Bind<GameModel>().To<GameModel>().ToSingleton();
             
             // views and mediators
-            mediationBinder.Bind<LevelView>().To<LevelViewMediator>();
-            mediationBinder.Bind<LevelHUDView>().To<LevelHUDMediator>();
             mediationBinder.Bind<MainMenuView>().To<MainMenuMediator>();
+            mediationBinder.Bind<LevelHUDView>().To<LevelHUDMediator>();
+            mediationBinder.Bind<LevelView>().To<LevelViewMediator>();
 
             // signals
             injectionBinder.Bind<MoveLeftSignal>().ToSingleton();
             injectionBinder.Bind<MoveRightSignal>().ToSingleton();
 
             // commands
-            commandBinder.Bind<StartGameSignal>().To<StartGameCommand>();
-
-            commandBinder.Bind<ShowMenuSignal>().To<ShowMainMenuCommand>();
+            commandBinder.Bind<StartGameSignal>().InSequence().
+            To<ClearCommand>().
+            To<StartGameCommand>();
+            
+            commandBinder.Bind<ShowMenuSignal>().InSequence().
+            To<ClearCommand>().
+            To<ShowMainMenuCommand>();
 
             commandBinder.Bind<InitiateSignal>().InSequence().
             To<LoadDataCommand>().

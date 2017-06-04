@@ -37,7 +37,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224727990578899008}
-  - component: {fileID: 114581150515012550}
+  - component: {fileID: 114911940176205044}
   m_Layer: 5
   m_Name: LevelHUD
   m_TagString: Untagged
@@ -114,18 +114,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 0000
---- !u!114 &114581150515012550
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1575416689544798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e339d46c499cd4cda9d7cd783e6858c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ScoreText: {fileID: 114383030485155244}
 --- !u!114 &114606423763328116
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -206,7 +194,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114581150515012550}
+      - m_Target: {fileID: 0}
         m_MethodName: OnLeftClick
         m_Mode: 1
         m_Arguments:
@@ -285,7 +273,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114581150515012550}
+      - m_Target: {fileID: 0}
         m_MethodName: OnRightClick
         m_Mode: 1
         m_Arguments:
@@ -298,6 +286,18 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114911940176205044
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1575416689544798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e339d46c499cd4cda9d7cd783e6858c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ScoreText: {fileID: 114383030485155244}
 --- !u!222 &222039379115116680
 CanvasRenderer:
   m_ObjectHideFlags: 1
