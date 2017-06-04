@@ -1,0 +1,28 @@
+{
+    "Obstacles": [
+        {
+            "Prefab": "wall0"
+        },
+        {
+            "Prefab": "wall1"
+        },
+        {
+            "Prefab": "wall2"
+        }
+    ],
+    
+    "Floors": [
+        {
+            "Prefab": "floor0"
+        },
+        {
+            "Prefab": "floor1"
+        }
+    ],
+
+    "Collectables": [
+        {
+            "Prefab": "Coin0"
+        }
+    ]
+}

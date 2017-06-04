@@ -13,4 +13,5 @@ win_build/
 .idea/
 .vs/
 .vscode/
-
+webgl_build/
+ios_build/
