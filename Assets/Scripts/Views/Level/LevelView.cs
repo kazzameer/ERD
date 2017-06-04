@@ -21,7 +21,7 @@ namespace App.Views
 		public LevelGeneratorModel LevelGeneratorModel { get; set; }
 
 		public Signal OnHit = new Signal();
-		public Signal OnCollect = new Signal();
+		public Signal<int> OnCollect = new Signal<int>();
 
 		private Player _player = null;
 		private int _currentTrack = 1;
@@ -83,6 +83,7 @@ namespace App.Views
 			segmentInstance.transform.SetParent(this.transform, false);
 			segmentInstance.transform.position = new Vector3(0, 0, _segmentCounter * 8.0f);
 			var obstacles = LevelGeneratorModel.Obstacles;
+			var collectables = LevelGeneratorModel.Collectables;
 
 			var floorInst = Instantiate<GameObject>(LevelGeneratorModel[segment.FloorPrefab]);
 			floorInst.transform.SetParent(segmentInstance.transform, false);
@@ -96,6 +97,14 @@ namespace App.Views
 					{
 						case SegmentValue.Wall: {
 							var obstacle = Utils.GetRandom(obstacles);
+							var obstaclePrefab = LevelGeneratorModel[obstacle.Prefab];
+							var inst = Instantiate<GameObject>(obstaclePrefab);
+							inst.transform.SetParent(segmentInstance.transform, false);
+							inst.transform.localPosition = new Vector3(Consts.CellOffset[i], 0, j);	
+						} break;
+
+						case SegmentValue.Coin: {
+							var obstacle = Utils.GetRandom(collectables);
 							var obstaclePrefab = LevelGeneratorModel[obstacle.Prefab];
 							var inst = Instantiate<GameObject>(obstaclePrefab);
 							inst.transform.SetParent(segmentInstance.transform, false);
@@ -120,11 +129,12 @@ namespace App.Views
 					OnHit.Dispatch();
 				};
 
-				_player.OnCollect = () => {
-					OnCollect.Dispatch();
+				_player.OnCollect = (obj) => {
+					Main.Instance.PlayCoinCollectSound();
+					Destroy(obj);
+					OnCollect.Dispatch(5);
 				};
-			}
-			
+			}	
 		}
 		
 		void LateUpdate()
@@ -153,7 +163,7 @@ namespace App.Views
 				if (_segmentProgress > 0.95f && !_pendNewSegment) {
 					_pendNewSegment = true;
 					SpawnSegment();
-					OnCollect.Dispatch();
+					OnCollect.Dispatch(1);
 				}
 
 				if (_segmentProgress > 0.25 && !_removedLastTile && segmentNumber > 0) {

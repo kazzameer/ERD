@@ -8,7 +8,7 @@ namespace App
 	public class Player : MonoBehaviour {
 		[SerializeField] Transform CameraAnchor = null;
 		public System.Action OnHit { get; set; }
-		public System.Action OnCollect { get; set; }
+		public System.Action<GameObject> OnCollect { get; set; }
 		private Animator _animatorController = null;
 		private bool _playerSteering = false;
 		
@@ -55,7 +55,11 @@ namespace App
 
 				if (contact.otherCollider.gameObject.layer == 9)
 				{
-					OnCollect();
+					var item = contact.otherCollider.gameObject.GetComponent<Collectable>();
+					if (!item.Collected) {
+						OnCollect(contact.otherCollider.gameObject);
+						item.Collected = true;
+					}
 				}
 			}
 		}

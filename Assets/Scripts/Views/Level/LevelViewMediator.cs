@@ -51,9 +51,9 @@ namespace App.Views
 			ShowMenu.Dispatch();
 		}
 
-		private void OnCollect()
+		private void OnCollect(int amount)
 		{
-			GameModel.IncScore(1);
+			GameModel.IncScore(amount);
 		}
 
 		private void OnMoveLeft()
@@ -69,8 +69,10 @@ namespace App.Views
 		public override void OnRemove()
 		{
 			base.OnRemove();
+			View.OnHit.RemoveListener(OnHit);
 			MoveLeft.RemoveListener(OnMoveLeft);
 			MoveRight.RemoveListener(OnMoveRight);
+			View.OnCollect.RemoveListener(OnCollect);
 			CountdownComplete.RemoveListener(OnCountdownComplete);
 		}
 

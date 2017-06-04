@@ -18,5 +18,11 @@
         {
             "Prefab": "floor1"
         }
+    ],
+
+    "Collectables": [
+        {
+            "Prefab": "Coin0"
+        }
     ]
 }

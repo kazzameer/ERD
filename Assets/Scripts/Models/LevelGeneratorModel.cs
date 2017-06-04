@@ -15,11 +15,18 @@ namespace App.Models
 	{
 		public List<ConfigEntry> Obstacles;
 		public List<ConfigEntry> Floors;
+		public List<ConfigEntry> Collectables;
 	}
 	public class LevelGeneratorModel
 	{
 		private LevelGeneratorConfig _config = null;
 		private Dictionary<string, GameObject> _prefabs = new Dictionary<string, GameObject>();
+
+		public List<ConfigEntry> Collectables {
+			get {
+				return _config.Collectables;
+			}
+		}
 
 		public List<ConfigEntry> Obstacles {
 			get {
@@ -56,12 +63,18 @@ namespace App.Models
 						_config.Obstacles.Count);
 					UnityEngine.Debug.LogWarningFormat("Loaded {0} generator floors", 
 						_config.Floors.Count);
+						UnityEngine.Debug.LogWarningFormat("Loaded {0} generator collectables", 
+						_config.Collectables.Count);
 
 					foreach(var entry in _config.Obstacles) {
 						LoadPrefab(entry);
 					}
 
 					foreach(var entry in _config.Floors) {
+						LoadPrefab(entry);
+					}
+
+					foreach(var entry in _config.Collectables) {
 						LoadPrefab(entry);
 					}
 				}

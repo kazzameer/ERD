@@ -66,9 +66,9 @@ namespace App.Level
 					{0, 0, 1},
 					{0, 0, 1},
 					{0, 0, 1},
-					{0, 0, 1},
-					{0, 0, 1},
-					{0, 0, 1},
+					{3, 0, 1},
+					{3, 0, 1},
+					{3, 0, 1},
 					{0, 0, 1},
 					{0, 0, 1},
 				},
@@ -90,16 +90,6 @@ namespace App.Level
 				id = 5
 			}
 		};
-		public static GeneratorPattern PickRandomWithMaxHeight(int maxHeight) {
-			List<GeneratorPattern> candidates = new List<GeneratorPattern>();
-			foreach(var pattern in Patterns) {
-				if (pattern.data.GetLength(0) <= maxHeight) {
-					candidates.Add(pattern);
-				}
-			}
-			return candidates.Count > 0 ? Utils.GetRandom(candidates) : null;
-		}
-
 		public static GeneratorPattern PickCompatibleAndHeight(int maxHeight, int compatibleToId) {
 			List<GeneratorPattern> candidates = new List<GeneratorPattern>();
 			foreach(var pattern in Patterns) {
@@ -146,8 +136,7 @@ namespace App.Level
 				heightBudget -= pattern.Height;
 				pattern = SegmentPattern.PickCompatibleAndHeight(heightBudget, pattern.id);
 			}
-			
-			
+			segment.PlaceCoins();
 			return segment;
 		}
 	}
